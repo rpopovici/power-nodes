@@ -1,6 +1,6 @@
 import bpy
 import random
-from math import sqrt, copysign, atan2
+from math import sqrt, copysign, atan2, radians
 from mathutils import Vector, Matrix
 import colorsys
 import time
