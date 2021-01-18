@@ -645,12 +645,12 @@ class OutputStreamSocket(NodeSocket, SocketBase):
     # item refs
     prop : CollectionProperty(name='Objects', type=IDProperty)
 
-    def draw(self, context, layout, node, text):
-        if (self.always_show_items or self.is_output) and node.bl_idname != 'PowerGroupNode':
-            row = layout.row(align=True)
-            row.prop(self, "items", text='')
-        else:
-            layout.label(text='Output')
+    # def draw(self, context, layout, node, text):
+    #     if (self.always_show_items or self.is_output) and node.bl_idname != 'PowerGroupNode':
+    #         row = layout.row(align=True)
+    #         row.prop(self, "items", text='')
+    #     else:
+    #         layout.label(text='Output')
 
 
 class OutputSocketInterface(NodeSocketInterface, SocketBaseInterface):
