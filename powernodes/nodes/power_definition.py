@@ -112,6 +112,23 @@ TRIANGULATE_NGON_METHOD = [
 ]
 
 
+SUBDIV_TYPE = [
+    ("CATMULL_CLARK", "Catmull Clark", ""),
+    ("SIMPLE", "Simple", "")
+]
+
+SUBDIV_UV_SMOOTH = [
+    ("NONE", "None", ""),
+    ("PRESERVE_CORNERS", "Keep corners", ""),
+    ("PRESERVE_BOUNDARIES", "All", "")
+]
+
+SUBDIV_BOUNDARY_SMOOTH = [
+    ("PRESERVE_CORNERS", "Keep corners", ""),
+    ("ALL", "All", "")
+]
+
+
 POWER_PROP_DEF = {
     "PASS": {
         "label": 'Pass',
@@ -274,8 +291,14 @@ POWER_PROP_DEF = {
         "label": 'Subdiv',
         "inputs":  [
             { "name": "input0", "label": "Input", "type": "InputStream" },
+            { "name": "subdivision_type", "label": "Subdivision type", "type": "Enum", "default": 'CATMULL_CLARK', "items": SUBDIV_TYPE, "expand": True },
             { "name": "levels", "label": "Levels", "type": "Int", "default": 1 },
             { "name": "quality", "label": "Quality", "type": "Int", "default": 3 },
+            { "name": "use_limit_surface", "label": "Use limit surface", "type": "Bool", "default": True },
+            { "name": "uv_smooth", "label": "UV Smooth", "type": "Enum", "default": 'PRESERVE_CORNERS', "items": SUBDIV_UV_SMOOTH, },
+            { "name": "boundary_smooth", "label": "Boundary Smooth", "type": "Enum", "default": 'ALL', "items": SUBDIV_BOUNDARY_SMOOTH, },
+            { "name": "use_creases", "label": "Use creases", "type": "Bool", "default": True },
+            { "name": "use_custom_normals", "label": "Use custom normals", "type": "Bool", "default": False },
         ],
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "SUBDIV", "items": POWER_ITEMS },

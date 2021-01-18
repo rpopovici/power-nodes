@@ -742,14 +742,26 @@ def mirror_operator(inputstream, options={}):
 
 
 def subdivide_operator(inputstream, options={}):
+    subdivision_type = options['subdivision_type']
     levels = options['levels']
     quality = options['quality']
+    use_limit_surface = options['use_limit_surface']
+    uv_smooth = options['uv_smooth']
+    boundary_smooth = options['boundary_smooth']
+    use_creases = options['use_creases']
+    use_custom_normals = options['use_custom_normals']
 
     for target_obj in inputstream:
         mod = target_obj.modifiers.new(name='SUBSURF' + '_' + target_obj.name, type='SUBSURF')
+        mod.subdivision_type = subdivision_type
         mod.levels = levels
-        #mod.render_levels = 2
+        # mod.render_levels = 2
         mod.quality = quality
+        mod.use_limit_surface = use_limit_surface
+        mod.uv_smooth = uv_smooth
+        mod.boundary_smooth = boundary_smooth
+        mod.use_creases = use_creases
+        mod.use_custom_normals = use_custom_normals
 
         # get a reference to the current obj.data
         old_mesh = target_obj.data
