@@ -496,14 +496,14 @@ class ExpressionOperator(bpy.types.Operator):
     def invoke(self, context, event):
         wm = context.window_manager
         mouse_y = event.mouse_y
-        bpy.context.window.cursor_warp(event.mouse_x, event.mouse_y - ui_scale() * 20)
+        # bpy.context.window.cursor_warp(event.mouse_x, event.mouse_y - ui_scale() * 20)
         if self.items:
             wm.invoke_search_popup(self)
-            bpy.context.window.cursor_warp(event.mouse_x, mouse_y)
+            # bpy.context.window.cursor_warp(event.mouse_x, mouse_y)
             return {'FINISHED'}
         else:
             ret = wm.invoke_props_dialog(self, width=500)
-            bpy.context.window.cursor_warp(event.mouse_x, mouse_y)
+            # bpy.context.window.cursor_warp(event.mouse_x, mouse_y)
             return ret
 
     def draw(self, context):
@@ -769,9 +769,9 @@ class SearchOperator(bpy.types.Operator):
         if self.items:
             wm = context.window_manager
             mouse_y = event.mouse_y
-            bpy.context.window.cursor_warp(event.mouse_x, event.mouse_y - ui_scale() * 20)
+            # bpy.context.window.cursor_warp(event.mouse_x, event.mouse_y - ui_scale() * 20)
             wm.invoke_search_popup(self)
-            bpy.context.window.cursor_warp(event.mouse_x, mouse_y)
+            # bpy.context.window.cursor_warp(event.mouse_x, mouse_y)
         else:
             self.set_item(context, '')
 

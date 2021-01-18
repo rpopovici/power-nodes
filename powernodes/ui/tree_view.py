@@ -254,9 +254,9 @@ class OutlinerOperator(bpy.types.Operator):
 
         # return wm.invoke_props_dialog(self, width=300)
         mouse_x, mouse_y = event.mouse_x, event.mouse_y
-        bpy.context.window.cursor_warp(mouse_x - ui_scale() * 300, mouse_y -  ui_scale() * 20)
+        # bpy.context.window.cursor_warp(mouse_x - ui_scale() * 300, mouse_y -  ui_scale() * 20)
         ret = wm.invoke_popup(self, width=300)
-        bpy.context.window.cursor_warp(mouse_x, mouse_y)
+        # bpy.context.window.cursor_warp(mouse_x, mouse_y)
         return ret
 
     def draw(self, context):
