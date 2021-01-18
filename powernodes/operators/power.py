@@ -772,9 +772,17 @@ def subdivide_operator(inputstream, options={}):
 
 
 def triangulate_operator(inputstream, options={}):
+    quad_method = options['quad_method']
+    ngon_method = options['ngon_method']
+    min_vertices = options['min_vertices']
+    keep_custom_normals = options['keep_custom_normals']
 
     for target_obj in inputstream:
         mod = target_obj.modifiers.new(name='TRIANGULATE' + '_' + target_obj.name, type='TRIANGULATE')
+        mod.quad_method = quad_method
+        mod.ngon_method = ngon_method
+        mod.min_vertices = min_vertices
+        mod.keep_custom_normals = keep_custom_normals
 
         # get a reference to the current obj.data
         old_mesh = target_obj.data

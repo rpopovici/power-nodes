@@ -99,6 +99,19 @@ SMOOTH_MODE_TYPE = [
 ]
 
 
+TRIANGULATE_QUAD_METHOD = [
+    ("BEAUTY", "Beauty", ""),
+    ("FIXED", "Fixed", ""),
+    ("FIXED_ALTERNATE", "Alternate", ""),
+    ("SHORTEST_DIAGONAL", "Shortest Diagonal", "")
+]
+
+TRIANGULATE_NGON_METHOD = [
+    ("BEAUTY", "Beauty", ""),
+    ("CLIP", "Clip", "")
+]
+
+
 POWER_PROP_DEF = {
     "PASS": {
         "label": 'Pass',
@@ -273,10 +286,10 @@ POWER_PROP_DEF = {
         "label": 'Triangulate',
         "inputs":  [
             { "name": "input0", "label": "Input", "type": "InputStream" },
-            # { "name": "quad_method", "label": "quad_method", "type": "Int", "default": 0 },
-            # { "name": "ngon_method", "label": "ngon_method", "type": "Int", "default": 0 },
-            # { "name": "min_vertices", "label": "min_vertices", "type": "Int", "default": 4 },
-            # { "name": "keep_custom_normals", "label": "Keep normals", "type": "Bool", "default": False },
+            { "name": "quad_method", "label": "Quad method", "type": "Enum", "default": 'BEAUTY', "items": TRIANGULATE_QUAD_METHOD },
+            { "name": "ngon_method", "label": "Ngon method", "type": "Enum", "default": 'BEAUTY', "items": TRIANGULATE_NGON_METHOD },
+            { "name": "min_vertices", "label": "Min vertices", "type": "Int", "default": 4, 'min': 4, },
+            { "name": "keep_custom_normals", "label": "Keep normals", "type": "Bool", "default": False },
         ],
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "TRIANGULATE", "items": POWER_ITEMS },
