@@ -710,16 +710,25 @@ def sweep_operator(inputstream, options={}):
     return (inputstream, None)
 
 
-def mirror_operator(inputstream, options={}):
-    axis = options['axis']
+def mirror_operator(inputstream0, inputstream1, options={}):
+    use_axis = options['use_axis']
+    use_bisect_axis = options['use_bisect_axis']
+    use_bisect_flip_axis = options['use_bisect_flip_axis']
+    use_clip = options['use_clip']
     use_mirror_merge = options['use_mirror_merge']
     merge_threshold = options['merge_threshold']
 
-    for target_obj in inputstream:
+    for target_obj in inputstream0:
         mod = target_obj.modifiers.new(name='MIRROR' + '_' + target_obj.name, type='MIRROR')
-        mod.use_axis = axis
+        mod.use_axis = use_axis
+        mod.use_bisect_axis = use_bisect_axis
+        mod.use_bisect_flip_axis = use_bisect_flip_axis
+        mod.use_clip = use_clip
         mod.use_mirror_merge = use_mirror_merge
         mod.merge_threshold = merge_threshold
+        if len(inputstream1) > 0:
+            mirror_object = inputstream1[0]
+            mod.mirror_object = mirror_object
 
         # get a reference to the current obj.data
         old_mesh = target_obj.data
@@ -738,7 +747,7 @@ def mirror_operator(inputstream, options={}):
         if old_mesh:
             bpy.data.meshes.remove(old_mesh)
 
-    return (inputstream, None)
+    return (inputstream0, None)
 
 
 def subdivide_operator(inputstream, options={}):

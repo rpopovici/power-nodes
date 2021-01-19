@@ -267,8 +267,12 @@ POWER_PROP_DEF = {
         "label": 'Mirror',
         "inputs":  [
             { "name": "input0", "label": "Input", "type": "InputStream" },
-            { "name": "axis", "label": "Axis", "type": "BoolVector", "default": (True, False, False) },
-            { "name": "use_mirror_merge", "label": "Merge", "type": "Bool", "default": False },
+            { "name": "input1", "label": "Input", "type": "InputStream" },
+            { "name": "use_axis", "label": "Axis", "type": "BoolVector", "default": (True, False, False) },
+            { "name": "use_bisect_axis", "label": "Bisect", "type": "BoolVector", "default": (False, False, False) },
+            { "name": "use_bisect_flip_axis", "label": "Flip", "type": "BoolVector", "default": (False, False, False) },
+            { "name": "use_clip", "label": "Clipping", "type": "Bool", "default": False },
+            { "name": "use_mirror_merge", "label": "Merge", "type": "Bool", "default": True },
             { "name": "merge_threshold", "label": "Merge Limit", "type": "Float", "default": 0.0001 },
         ],
         "outputs": [
