@@ -53,6 +53,18 @@ BEVEL_OFFSET_TYPE = [
     ("PERCENT", "Percent", ""),
 ]
 
+BEVEL_MITER_INNER = [
+    ("SHARP", "Sharp", ""),
+    ("PATCH", "Patch", ""),
+    ("ARC", "Arc", ""),
+]
+
+BEVEL_MITER_OUTER = [
+    ("SHARP", "Sharp", ""),
+    ("PATCH", "Patch", ""),
+    ("ARC", "Arc", ""),
+]
+
 
 BOOLEAN_OPERATION_TYPE = [
     ("DIFFERENCE", "DIFFERENCE", ""),
@@ -168,8 +180,10 @@ POWER_PROP_DEF = {
             { "name": "offset_type", "label": "Offset Type", "type": "Enum", "default": "OFFSET", "items": BEVEL_OFFSET_TYPE},
             { "name": "segments", "label": "Segments", "type": "Int", "default": 1, 'min': 1, 'max': 100 },
             { "name": "profile", "label": "Profile", "type": "Float", "default": 0.5 },
+            { "name": "miter_inner", "label": "Miter inner", "type": "Enum", "default": "SHARP", "items": BEVEL_MITER_INNER},
+            { "name": "miter_outer", "label": "Miter outer", "type": "Enum", "default": "SHARP", "items": BEVEL_MITER_OUTER},
             { "name": "clamp_overlap", "label": "Clamp overlap", "type": "Bool", "default": True },
-            { "name": "vertex_only", "label": "Vertex only", "type": "Bool", "default": False },
+            { "name": "loop_slide", "label": "Loop slide", "type": "Bool", "default": True },
         ],
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "BEVEL", "items": POWER_ITEMS },

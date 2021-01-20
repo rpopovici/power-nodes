@@ -289,8 +289,10 @@ def bevel_operator(inputstream, options={}):
     offset_type = options['offset_type']
     segments = options['segments']
     profile = options['profile']
+    miter_inner = options['miter_inner']
+    miter_outer = options['miter_outer']
     clamp_overlap = options['clamp_overlap']
-    vertex_only = options['vertex_only']
+    loop_slide = options['loop_slide']
 
     for obj in inputstream:
         me = obj.data
@@ -316,15 +318,21 @@ def bevel_operator(inputstream, options={}):
         except Exception as e:
             print('Failed to evaluate expression: ', str(e))
 
+        if mode == 'FACE':
+            selected_elements = list({edge for face in selected_elements for edge in face.edges})
+
         faces = bmesh.ops.bevel(bm,
-                        geom=selected_elements,
-                        offset=offset,
-                        offset_type=offset_type, #'PERCENT', #OFFSET PERCENT
-                        segments=segments,
-                        profile=profile,
-                        affect='VERTICES' if vertex_only else 'EDGES',
-                        clamp_overlap=clamp_overlap,
-                        material=-1)
+                                geom=selected_elements,
+                                offset=offset,
+                                offset_type=offset_type, #'PERCENT', #OFFSET PERCENT
+                                segments=segments,
+                                profile=profile,
+                                affect='VERTICES' if mode == 'VERT' else 'EDGES',
+                                clamp_overlap=clamp_overlap,
+                                loop_slide=loop_slide,
+                                miter_inner=miter_inner,
+                                miter_outer=miter_outer,
+                                material=-1)
 
         # Finish up, write the bmesh back to the mesh
         bm.to_mesh(me)
