@@ -115,7 +115,11 @@ def extract_range(expression):
 def attribute_create(mesh, name, domain, data_type):
     for attribute in mesh.attributes:
         if attribute.name == name and attribute.domain == DOMAIN_MAP[domain]:
-            mesh.attributes.remove(attribute)
+            # remove and replace if data type does not match
+            if attribute.data_type == data_type:
+                return attribute
+            else:
+                mesh.attributes.remove(attribute)
 
     attr_def = mesh.attributes.new(name=name, type=data_type, domain=DOMAIN_MAP[domain])
     return attr_def

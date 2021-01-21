@@ -10,6 +10,7 @@ ATTRIBUTE_ITEMS = [
     ("EXPRESSION", "Formula", "Expression evaluate", "EXPERIMENTAL", 3),
     ("TRANSPORT", "Transport", "Attribute transfer", "CENTER_ONLY", 4),
     ("SMOOTH", "Smooth", "Attribute smooth", "MOD_SMOOTH", 5),
+    ("RANDOM", "Random", "Attribute randomize", "MOD_NOISE", 6),
 ]
 
 
@@ -46,17 +47,20 @@ ATTRIBUTE_PROP_DEF = {
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "CREATE", "items": ATTRIBUTE_ITEMS },
         ],
-        "command": "create_attribute"
+        "command": "create_attribute_op"
     },
     "COPY": {
         "label": 'Attribute copy',
         "inputs": [
             { "name": "input0", "label": "Input", "type": "InputStream" },
+            { "name": "input1", "label": "Input", "type": "InputStream" },
+            { "name": "from_domain", "label": "Type", "type": "Enum", "default": 'VERTEX', "items": DOMAIN_TYPE, },
+            { "name": "attribute_name", "label": "Name", "type": "String", "default": 'id', 'icon': 'COPY_ID' },
         ],
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "COPY", "items": ATTRIBUTE_ITEMS },
         ],
-        "command": "copy_attribute"
+        "command": "copy_attribute_op"
     },
     "ELEVATE": {
         "label": 'Attribute elevate',
@@ -82,7 +86,7 @@ ATTRIBUTE_PROP_DEF = {
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "EXPRESSION", "items": ATTRIBUTE_ITEMS },
         ],
-        "command": "evaluate_attribute_expression"
+        "command": "evaluate_attribute_expression_op"
     },
     "TRANSPORT": {
         "label": 'Attribute transport',
@@ -92,7 +96,7 @@ ATTRIBUTE_PROP_DEF = {
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "TRANSPORT", "items": ATTRIBUTE_ITEMS },
         ],
-        "command": "transport_attribute"
+        "command": "transport_attribute_op"
     },
     "SMOOTH": {
         "label": 'Attribute smooth',
@@ -102,7 +106,17 @@ ATTRIBUTE_PROP_DEF = {
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "SMOOTH", "items": ATTRIBUTE_ITEMS },
         ],
-        "command": "smooth_attribute"
+        "command": "smooth_attribute_op"
+    },
+    "RANDOM": {
+        "label": 'Attribute randomize',
+        "inputs": [
+            { "name": "input0", "label": "Input", "type": "InputStream" },
+        ],
+        "outputs": [
+            { "name": "output", "label": "Output", "type": "OutputStream", "default": "SMOOTH", "items": ATTRIBUTE_ITEMS },
+        ],
+        "command": "randomize_attribute_op"
     },
 }
 
