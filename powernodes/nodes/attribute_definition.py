@@ -24,6 +24,16 @@ DOMAIN_TYPE = [
 ]
 
 
+TRANSPORT_DOMAIN_TYPE = [
+    ("VERTEX", "Vertex", ""),
+    # ("EDGE", "Edge", ""),
+    # ("CORNER", "Loop", ""),
+    ("POLYGON", "Face", ""),
+    # ("POINT", "Point", ""),
+    # ("CURVE", "Curve", ""),
+]
+
+
 ATTRIBUTE_TYPE = [
     ("FLOAT", "Float", ""),
     ("INT", "Int", ""),
@@ -92,6 +102,10 @@ ATTRIBUTE_PROP_DEF = {
         "label": 'Attribute transport',
         "inputs": [
             { "name": "input0", "label": "Input", "type": "InputStream" },
+            { "name": "input1", "label": "Input", "type": "InputStream" },
+            { "name": "from_domain", "label": "Type", "type": "Enum", "default": 'VERTEX', "items": TRANSPORT_DOMAIN_TYPE, },
+            { "name": "attribute_name", "label": "Name", "type": "String", "default": 'id', 'icon': 'COPY_ID' },
+            { "name": "distance", "label": "Distance", "type": "Float", "default": 0.01 },
         ],
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "TRANSPORT", "items": ATTRIBUTE_ITEMS },

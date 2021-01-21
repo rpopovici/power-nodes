@@ -198,3 +198,86 @@ def elevate_attribute_op(inputstream, options={}):
         bm.free()
 
     return (inputstream, None)
+
+
+def transport_attribute_op(inputstream0, inputstream1, options={}):
+    from_domain = options['from_domain']
+    attribute_name = options['attribute_name']
+    distance = options['distance']
+
+    for from_obj in inputstream1:
+        from_me = from_obj.data
+
+        # get data type from from_attr
+        from_attr = attribute_get(from_me, attribute_name, from_domain)
+        if not from_attr:
+            continue
+
+        # Get a BMesh representation
+        from_bm = bmesh.new()
+        from_bm.from_mesh(from_me)
+        from_bm.verts.ensure_lookup_table()
+        from_bm.edges.ensure_lookup_table()
+        from_bm.faces.ensure_lookup_table()
+
+        bhv_tree = BVHTree.FromBMesh(from_bm, epsilon=0.00001)
+
+        for to_obj in inputstream0:
+            to_me = to_obj.data
+            attribute_create(to_me, attribute_name, from_domain, from_attr.data_type)
+
+            to_bm = bmesh.new()
+            to_bm.from_mesh(to_me)
+            to_bm.verts.ensure_lookup_table()
+            to_bm.edges.ensure_lookup_table()
+            to_bm.faces.ensure_lookup_table()
+
+            from_elements = []
+            to_elements = []
+            if from_domain == 'VERTEX':
+                from_elements = from_bm.verts
+                to_elements = to_bm.verts
+            if from_domain == 'EDGE':
+                from_elements = from_bm.edges
+                to_elements = to_bm.edges
+            if from_domain == 'POLYGON':
+                from_elements = from_bm.faces
+                to_elements = to_bm.faces
+            if from_domain == 'CORNER':
+                from_elements = [loop for face in from_bm.faces for loop in face.loops]
+                to_elements = [loop for face in to_bm.faces for loop in face.loops]
+
+            from_attr_layer_items = extract_custom_attribute_layers([attribute_name], from_me, from_bm, from_domain)
+            to_attr_layer_items = extract_custom_attribute_layers([attribute_name], to_me, to_bm, from_domain)
+            _, from_attr_layer_item, _, _ = from_attr_layer_items[0]
+            _, to_attr_layer_item, _, _ = to_attr_layer_items[0]
+
+            bvh_find_nearest = bhv_tree.find_nearest
+
+            if from_domain == 'VERTEX':
+                for to_index, vert in enumerate(to_bm.verts):
+                    (loc, norm, from_index, dist) = bvh_find_nearest(vert.co, distance)
+                    if from_index:
+                        for face_vert in from_bm.faces[from_index].verts:
+                            if (vert.co - face_vert.co).length <= distance:
+                                from_elem = face_vert
+                                to_elem = to_elements[to_index]
+                                to_elem[to_attr_layer_item] = from_elem[from_attr_layer_item]
+                                break
+
+            if from_domain == 'POLYGON':
+                for to_index, face in enumerate(to_bm.faces):
+                    (loc, norm, from_index, dist) = bvh_find_nearest(face.calc_center_median(), distance)
+                    if from_index:
+                        from_elem = from_elements[from_index]
+                        to_elem = to_elements[to_index]
+                        to_elem[to_attr_layer_item] = from_elem[from_attr_layer_item]
+
+            # Finish up, write the bmesh back to the mesh
+            to_bm.to_mesh(to_me)
+            to_me.update()
+            to_bm.free()
+
+        from_bm.free()
+
+    return (inputstream0, None)
