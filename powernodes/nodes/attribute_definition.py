@@ -126,6 +126,9 @@ ATTRIBUTE_PROP_DEF = {
         "label": 'Attribute randomize',
         "inputs": [
             { "name": "input0", "label": "Input", "type": "InputStream" },
+            { "name": "domain", "label": "Domain", "type": "Enum", "default": 'VERTEX', "items": DOMAIN_TYPE, },
+            { "name": "attribute_name", "label": "Name", "type": "String", "default": 'id', 'icon': 'COPY_ID' },
+            { "name": "seed", "label": "Seed", "type": "Int", "default": 0 },
         ],
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "SMOOTH", "items": ATTRIBUTE_ITEMS },

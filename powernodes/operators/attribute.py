@@ -2,9 +2,12 @@ import bpy
 import bmesh
 from mathutils import Vector, Matrix
 from mathutils.bvhtree import BVHTree
+from mathutils.noise import random, random_vector, random_unit_vector, seed_set
+import random
 
 from .. parse import attribute_create, attribute_get, evaluate_expression, extract_custom_attribute_layers, evaluate_expression_foreach, TYPE_INITIAL_VALUE
 
+MAX_INT = 2147483647
 
 def create_attribute_op(inputstream, options={}):
     domain = options['domain']
@@ -283,3 +286,62 @@ def transport_attribute_op(inputstream0, inputstream1, options={}):
         from_bm.free()
 
     return (inputstream0, None)
+
+
+def randomize_attribute_op(inputstream, options={}):
+    domain = options['domain']
+    attribute_name = options['attribute_name']
+    seed = options['seed']
+
+    for index, obj in enumerate(inputstream):
+        me = obj.data
+
+        # get data type from attribute
+        attribute = attribute_get(me, attribute_name, domain)
+        if not attribute:
+            continue
+
+        seed_set(seed + index)
+
+        # Get a BMesh representation
+        bm = bmesh.new()
+        bm.from_mesh(me)
+        bm.verts.ensure_lookup_table()
+        bm.edges.ensure_lookup_table()
+        bm.faces.ensure_lookup_table()
+
+        elements = []
+        if domain == 'VERTEX':
+            elements = bm.verts
+        if domain == 'EDGE':
+            elements = bm.edges
+        if domain == 'POLYGON':
+            elements = bm.faces
+        if domain == 'CORNER':
+            elements = [loop for face in bm.faces for loop in face.loops]
+
+        custom_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, domain)
+        attr, attr_layer_item, _, _ = custom_attr_layer_items[0]
+
+        if attribute.data_type in ['INT']:
+            random.seed(seed + index)
+            for elem in elements: elem[attr_layer_item] = random.randint(0, MAX_INT)
+
+        if attribute.data_type in ['FLOAT']:
+            for elem in elements: elem[attr_layer_item] = random()
+
+        if attribute.data_type in ['FLOAT_VECTOR']:
+            for elem in elements: elem[attr_layer_item] = random_vector(size=3)
+
+        if attribute.data_type in ['FLOAT_COLOR']:
+            for elem in elements: elem[attr_layer_item] = random_unit_vector(size=4)
+
+        if attribute.data_type in ['BYTE_COLOR']:
+            for elem in elements: elem[attr_layer_item] = random_unit_vector(size=4) * 255
+
+        # Finish up, write the bmesh back to the mesh
+        bm.to_mesh(me)
+        me.update()
+        bm.free()
+
+    return (inputstream, None)
