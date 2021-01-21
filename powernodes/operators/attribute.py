@@ -128,6 +128,8 @@ def evaluate_attribute_expression_op(inputstream, options={}):
             elements = bm.edges
         if domain == 'POLYGON':
             elements = bm.faces
+        if domain == 'CORNER':
+            elements = [loop for face in bm.faces for loop in face.loops]
 
         try:
             custom_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, domain)
