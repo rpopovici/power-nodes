@@ -50,9 +50,9 @@ BUILTINS = {
 }
 
 
-FIELD_LIST = ['area', 'center', 'co', 'index', 'bevel_weight', 'is_boundary', 'is_manifold',
+FIELD_LIST = ['area', 'center', 'co', 'index', 'bevel_weight', 'is_boundary', 'is_manifold', 'is_wire', 'is_convex',
     'edge_index', 'normal', 'select', 'hide', 'tangent', 'bitangent',
-    'material_index', 'vertex_index', 'vertices', 'key', 'crease', 'use_edge_sharp', 'use_seam', 'tag']
+    'material_index', 'vertex_index', 'verts', 'edges', 'faces', 'vertices', 'key', 'crease', 'use_edge_sharp', 'seam', 'use_seam', 'tag']
 
 GLOBAL_ATTRIBUTES = ['CTX', 'IDX', 'FRAME', 'FSTART', 'FEND', 'FPS', 'FPS_BASE', 'LEN', 'LOC', 'ROT', 'SCA']
 

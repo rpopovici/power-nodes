@@ -34,12 +34,25 @@ SOCKET_COLORS = {
 
 
 EXPRESSION_PRESETS = {
-    ('$select', 'Selected', ''),
-    ('not $select', 'Invert selected', ''),
-    ('True', 'Everything', ''),
-    ('len($self.verts) > 4', 'NGons', ''),
-    ('$self.is_boundary', 'Boundary', ''),
-    ('$self.is_manifold', 'Manifold', ''),
+    ('$select', 'Selected (Any)', ''),
+    ('not $select', 'Invert selected (Any)', ''),
+    ('$hide', 'Hidden (Any)', ''),
+    ('True', 'Everything (Any)', ''),
+    ('$IDX % 2', 'Odd (Any)', ''),
+    ('$co.z > 0.0', 'Above ground (Vert)', ''),
+    ('len($self.link_edges) > 4', 'Poles (Vert)', ''),
+    ('$self.is_boundary', 'Boundary (Vert/Edge)', ''),
+    ('$self.is_manifold', 'Manifold (Vert/Edge)', ''),
+    ('$self.is_wire', 'Wire (Vert/Edge)', ''),
+    ('$self.calc_face_angle_signed(0.0) < radians(45)', 'By angle (Edge)', ''),
+    ('$self.calc_length() > 0.1', 'By length (Edge)', ''),
+    ('$seam', 'UV Seam (Edge)', ''),
+    ('reduce(lambda acc, loop: acc and loop.is_convex, $self.loops, True)', 'Convex (Face)', ''),
+    ('len($self.verts) > 4', 'NGons (Face)', ''),
+    ('$self.calc_area() > 0.1', 'By area (Face)', ''),
+    ('$self.calc_perimeter() > 0.1', 'By perimeter (Face)', ''),
+    ('$self.material_index == 1', 'By material (Face)', ''),
+    ('$self.normal.rotation_difference(Vector((1.0, 0.0, 0.0))).angle < radians(5)', 'By normal (Vert/Face)', ''),
 }
 
 
