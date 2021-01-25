@@ -24,6 +24,16 @@ DOMAIN_TYPE = [
 ]
 
 
+ELEVATE_DOMAIN_TYPE = [
+    ("CORNER_TO_VERTEX", "Corner to Vertex", ""),
+    ("CORNER_TO_POLYGON", "Corner to Face", ""),
+    ("VERTEX_TO_CORNER", "Vertex to Corner", ""),
+    ("VERTEX_TO_POLYGON", "Vertex to Face", ""),
+    ("POLYGON_TO_CORNER", "Face to Corner", ""),
+    ("POLYGON_TO_VERTEX", "Face to Vertex", ""),
+]
+
+
 TRANSPORT_DOMAIN_TYPE = [
     ("VERTEX", "Vertex", ""),
     # ("EDGE", "Edge", ""),
@@ -76,8 +86,7 @@ ATTRIBUTE_PROP_DEF = {
         "label": 'Attribute elevate',
         "inputs": [
             { "name": "input0", "label": "Input", "type": "InputStream" },
-            { "name": "from_domain", "label": "From", "type": "Enum", "default": 'VERTEX', "items": DOMAIN_TYPE, },
-            { "name": "to_domain", "label": "To", "type": "Enum", "default": 'VERTEX', "items": DOMAIN_TYPE, },
+            { "name": "elevate_mode", "label": "Mode", "type": "Enum", "default": 'VERTEX_TO_POLYGON', "items": ELEVATE_DOMAIN_TYPE, },
             { "name": "attribute_name", "label": "Name", "type": "String", "default": 'id', 'icon': 'COPY_ID' },
         ],
         "outputs": [

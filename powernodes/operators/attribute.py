@@ -154,9 +154,11 @@ def evaluate_attribute_expression_op(inputstream, options={}):
 
 
 def elevate_attribute_op(inputstream, options={}):
-    from_domain = options['from_domain']
-    to_domain = options['to_domain']
+    elevate_mode = options['elevate_mode']
     attribute_name = options['attribute_name']
+
+    from_domain = elevate_mode.split('_TO_')[0]
+    to_domain = elevate_mode.split('_TO_')[1]
 
     for obj in inputstream:
         me = obj.data
