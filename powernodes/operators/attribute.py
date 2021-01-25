@@ -186,6 +186,15 @@ def elevate_attribute_op(inputstream, options={}):
                     average_value = sum(corner_values, TYPE_INITIAL_VALUE[from_attr.data_type]) / len(corner_values)
                     vert[to_attr_layer_item] = average_value
 
+        if from_domain == 'VERTEX' and to_domain == 'CORNER':
+            from_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, from_domain)
+            to_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, to_domain)
+            if len(from_attr_layer_items) > 0:
+                _, from_attr_layer_item, _, _ = from_attr_layer_items[0]
+                _, to_attr_layer_item, _, _ = to_attr_layer_items[0]
+                for vert in bm.verts:
+                    for loop in vert.link_loops: loop[to_attr_layer_item] = vert[from_attr_layer_item]
+
         if from_domain == 'CORNER' and to_domain == 'POLYGON':
             from_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, from_domain)
             to_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, to_domain)
@@ -196,6 +205,35 @@ def elevate_attribute_op(inputstream, options={}):
                     corner_values = [loop[from_attr_layer_item] for loop in face.loops]
                     average_value = sum(corner_values, TYPE_INITIAL_VALUE[from_attr.data_type]) / len(corner_values)
                     face[to_attr_layer_item] = average_value
+
+        if from_domain == 'POLYGON' and to_domain == 'CORNER':
+            from_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, from_domain)
+            to_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, to_domain)
+            if len(from_attr_layer_items) > 0:
+                _, from_attr_layer_item, _, _ = from_attr_layer_items[0]
+                _, to_attr_layer_item, _, _ = to_attr_layer_items[0]
+                for face in bm.faces:
+                    for loop in face.loops: loop[to_attr_layer_item] = face[from_attr_layer_item]
+
+        if from_domain == 'VERTEX' and to_domain == 'POLYGON':
+            from_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, from_domain)
+            to_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, to_domain)
+            if len(from_attr_layer_items) > 0:
+                _, from_attr_layer_item, _, _ = from_attr_layer_items[0]
+                _, to_attr_layer_item, _, _ = to_attr_layer_items[0]
+                for face in bm.faces:
+                    vert_values = [vert[from_attr_layer_item] for vert in face.verts]
+                    average_value = sum(vert_values, TYPE_INITIAL_VALUE[from_attr.data_type]) / len(vert_values)
+                    face[to_attr_layer_item] = average_value
+
+        if from_domain == 'POLYGON' and to_domain == 'VERTEX':
+            from_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, from_domain)
+            to_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, to_domain)
+            if len(from_attr_layer_items) > 0:
+                _, from_attr_layer_item, _, _ = from_attr_layer_items[0]
+                _, to_attr_layer_item, _, _ = to_attr_layer_items[0]
+                for face in bm.faces:
+                    for vert in face.verts: vert[to_attr_layer_item] = face[from_attr_layer_item]
 
         # Finish up, write the bmesh back to the mesh
         bm.to_mesh(me)
