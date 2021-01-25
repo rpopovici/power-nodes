@@ -56,7 +56,7 @@ def copy_operator(inputstream0, inputstream1, options={}):
                 mesh_elements = target_obj.data.polygons
 
             try:
-                values = evaluate_expression_foreach(elements, expression, target_obj, target_obj.data, target_bm, select_type)
+                values = evaluate_expression_foreach(elements, expression, target_obj, target_obj.data, target_bm, select_type, default_ret=True)
                 for elem, value in zip(mesh_elements, values): setattr(elem, 'select', bool(value))
                 # target_bm.select_flush(False)
             except Exception as e:
@@ -104,7 +104,7 @@ def copy_operator(inputstream0, inputstream1, options={}):
             mesh_elements = target_obj.data.polygons
 
         try:
-            values = evaluate_expression_foreach(elements, expression, target_obj, target_obj.data, target_bm, select_type)
+            values = evaluate_expression_foreach(elements, expression, target_obj, target_obj.data, target_bm, select_type, default_ret=True)
             for elem, value in zip(mesh_elements, values): setattr(elem, 'select', bool(value))
             # target_bm.select_flush(False)
         except Exception as e:

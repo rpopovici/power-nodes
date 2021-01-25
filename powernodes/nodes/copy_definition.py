@@ -29,7 +29,7 @@ COPY_PROP_DEF = {
             { "name": "input0", "label": "Input", "type": "InputStream" },
             { "name": "input1", "label": "Input", "type": "InputStream" },
             { "name": "select_type", "label": "Type", "type": "Enum", "default": 'VERT', "items": SELECT_TYPE, "expand": True },
-            { "name": "expression", "label": "Exp", "type": "Expression", "default": '$select', 'icon': 'EXPERIMENTAL' },
+            { "name": "expression", "label": "Exp", "type": "Expression", "default": '', 'icon': 'EXPERIMENTAL' },
             { "name": "align_type", "label": "Align", "type": "Enum", "default": 'NONE', "items": ALIGN_TYPE, "expand": True },
             { "name": "normal_align", "label": "Align to normal", "type": "Bool", "default": False },
             { "name": "edge_normal", "label": "Normal to edge", "type": "Bool", "default": False },

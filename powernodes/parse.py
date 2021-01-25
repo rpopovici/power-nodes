@@ -196,9 +196,9 @@ def evaluate_expression(exp, global_scope, local_scope):
     return local_scope['_R_E_T_']
 
 
-def evaluate_expression_foreach(elements, expression, obj, me, bm, domain):
+def evaluate_expression_foreach(elements, expression, obj, me, bm, domain, default_ret=0):
     if not expression:
-        return []
+        return [default_ret] * len(elements)
 
     fexp, namespace = compile_expression_func(expression, me, bm, domain)
     namespace['_CTX_'] = bpy.context

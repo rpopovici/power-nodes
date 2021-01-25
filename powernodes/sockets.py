@@ -37,7 +37,7 @@ EXPRESSION_PRESETS = {
     ('$select', 'Selected (Any)', ''),
     ('not $select', 'Invert selected (Any)', ''),
     ('$hide', 'Hidden (Any)', ''),
-    ('True', 'Everything (Any)', ''),
+    ('', 'Everything (Any)', ''),
     ('$IDX % 2', 'Odd (Any)', ''),
     ('$co.z > 0.0', 'Above ground (Vert)', ''),
     ('len($self.link_edges) > 4', 'Poles (Vert)', ''),

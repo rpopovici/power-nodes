@@ -33,7 +33,7 @@ DELETE_PROP_DEF = {
         "inputs":  [
             { "name": "input0", "label": "Input", "type": "InputStream" },
             { "name": "select_type", "label": "Type", "type": "Enum", "default": 'VERTS', "items": DELETE_SELECT_TYPE, },
-            { "name": "expression", "label": "Exp", "type": "Expression", "default": '$select', 'icon': 'EXPERIMENTAL' },
+            { "name": "expression", "label": "Exp", "type": "Expression", "default": '', 'icon': 'EXPERIMENTAL' },
         ],
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "DELETE", "items": DELETE_ITEMS },
@@ -45,7 +45,7 @@ DELETE_PROP_DEF = {
         "inputs":  [
             { "name": "input0", "label": "Input", "type": "InputStream" },
             { "name": "select_type", "label": "Type", "type": "Enum", "default": 'VERTS', "items": DISSOLVE_SELECT_TYPE, "expand": True},
-            { "name": "expression", "label": "Exp", "type": "Expression", "default": '$select', 'icon': 'EXPERIMENTAL' },
+            { "name": "expression", "label": "Exp", "type": "Expression", "default": '', 'icon': 'EXPERIMENTAL' },
             { "name": "use_boundary_tear", "label": "Boundary tear", "type": "Bool", "default": False, 'enabled_by': "select_type=VERTS" },
             { "name": "use_face_split", "label": "Face split", "type": "Bool", "default": False, 'enabled_by': "select_type=VERTS,EDGES" },
             { "name": "use_verts", "label": "Use verts", "type": "Bool", "default": False, 'enabled_by': "select_type=EDGES,FACES" },

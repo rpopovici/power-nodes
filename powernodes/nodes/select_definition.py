@@ -86,7 +86,7 @@ SELECT_PROP_DEF = {
         "inputs": [
             { "name": "input0", "label": "Input", "type": "InputStream" },
             { "name": "select_type", "label": "Type", "type": "Enum", "default": 'VERT', "items": SELECT_TYPE, "expand": True },
-            { "name": "expression", "label": "Exp", "type": "String", "default": '$id % 2' },
+            { "name": "expression", "label": "Exp", "type": "Expression", "default": '$IDX % 2', 'icon': 'EXPERIMENTAL' },
         ],
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "EXPRESSION", "items": SELECT_ITEMS },

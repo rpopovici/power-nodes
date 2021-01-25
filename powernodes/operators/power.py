@@ -313,7 +313,7 @@ def bevel_operator(inputstream, options={}):
 
         selected_elements = []
         try:
-            values = evaluate_expression_foreach(elements, expression, obj, me, bm, mode)
+            values = evaluate_expression_foreach(elements, expression, obj, me, bm, mode, default_ret=True)
             selected_elements = [elem for elem, value in zip(elements, values) if bool(value)]
         except Exception as e:
             print('Failed to evaluate expression: ', str(e))
@@ -376,7 +376,7 @@ def extrude_operator(inputstream, options={}):
 
         selected_elements = []
         try:
-            values = evaluate_expression_foreach(elements, expression, obj, me, bm, mode)
+            values = evaluate_expression_foreach(elements, expression, obj, me, bm, mode, default_ret=True)
             selected_elements = [elem for elem, value in zip(elements, values) if bool(value)]
         except Exception as e:
             print('Failed to evaluate expression: ', str(e))
@@ -494,7 +494,7 @@ def inset_operator(inputstream, options={}):
         faces = []
         try:
             elements = bm.faces
-            values = evaluate_expression_foreach(elements, expression, obj, me, bm, mode)
+            values = evaluate_expression_foreach(elements, expression, obj, me, bm, mode, default_ret=True)
             faces = [elem for elem, value in zip(elements, values) if bool(value)]
         except Exception as e:
             print('Failed to evaluate expression: ', str(e))

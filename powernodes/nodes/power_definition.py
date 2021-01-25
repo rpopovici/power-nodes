@@ -175,7 +175,7 @@ POWER_PROP_DEF = {
         "inputs":  [
             { "name": "input0", "label": "Input", "type": "InputStream" },
             { "name": "mode", "label": "Mode", "type": "Enum", "default": 'EDGE', "items": BEVEL_TYPE, "expand": True },
-            { "name": "expression", "label": "Exp", "type": "Expression", "default": '$select', 'icon': 'EXPERIMENTAL' },
+            { "name": "expression", "label": "Exp", "type": "Expression", "default": '', 'icon': 'EXPERIMENTAL' },
             { "name": "offset", "label": "Offset", "type": "Float", "default": 0.1 },
             { "name": "offset_type", "label": "Offset Type", "type": "Enum", "default": "OFFSET", "items": BEVEL_OFFSET_TYPE},
             { "name": "segments", "label": "Segments", "type": "Int", "default": 1, 'min': 1, 'max': 100 },
@@ -210,7 +210,7 @@ POWER_PROP_DEF = {
         "inputs":  [
             { "name": "input0", "label": "Input", "type": "InputStream" },
             { "name": "mode", "label": "Mode", "type": "Enum", "default": 'VERT', "items": EXTRUDE_TYPE, "expand": True },
-            { "name": "expression", "label": "Exp", "type": "Expression", "default": '$select', 'icon': 'EXPERIMENTAL' },
+            { "name": "expression", "label": "Exp", "type": "Expression", "default": '', 'icon': 'EXPERIMENTAL' },
             { "name": "offset_displace", "label": "Offset", "type": "Vector", "default": (0.0, 0.0, 1.0) },
             { "name": "use_keep_orig", "label": "Keep original", "type": "Bool", "default": False },
             { "name": "use_normal_flip", "label": "Normal flip", "type": "Bool", "default": False },
@@ -227,7 +227,7 @@ POWER_PROP_DEF = {
         "inputs":  [
             { "name": "input0", "label": "Input", "type": "InputStream" },
             { "name": "mode", "label": "Mode", "type": "Enum", "default": 'FACE', "items": INSET_TYPE, "expand": True },
-            { "name": "expression", "label": "Exp", "type": "Expression", "default": '$select', 'icon': 'EXPERIMENTAL' },
+            { "name": "expression", "label": "Exp", "type": "Expression", "default": '', 'icon': 'EXPERIMENTAL' },
             { "name": "thickness", "label": "Thickness", "type": "Float", "default": 0.1 },
             { "name": "depth", "label": "Depth", "type": "Float", "default": 0.0 },
             { "name": "use_boundary", "label": "Use boundary only", "type": "Bool", "default": False },

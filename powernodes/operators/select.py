@@ -195,7 +195,7 @@ def select_by_expression(inputstream, options={}):
             elements = bm.faces
 
         try:
-            values = evaluate_expression_foreach(elements, expression, obj, me, bm, select_type)
+            values = evaluate_expression_foreach(elements, expression, obj, me, bm, select_type, default_ret=True)
             [elem.select_set(bool(value)) for elem, value in zip(elements, values)]
         except Exception as e:
             print('Failed to evaluate expression: ', str(e))
