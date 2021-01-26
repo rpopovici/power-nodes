@@ -139,6 +139,7 @@ class PowerTreeItem_Expand(bpy.types.Operator):
 class PowerTreeItem_Select(bpy.types.Operator):
     bl_idname = "object.powertree_select"
     bl_label = "Select Object"
+    bl_options = {'REGISTER', 'UNDO'}
 
     item_index: IntProperty(default=0)
 
@@ -235,6 +236,9 @@ class OutlinerOperator(bpy.types.Operator):
     def execute(self, context):
         return {'FINISHED'}
 
+    # def cancel(self, context):
+    #     bpy.ops.ed.undo_push()
+
     def invoke(self, context, event):
         wm = context.window_manager
         bpy.context.scene.pn_path_to_socket = self.path_to_socket
@@ -252,11 +256,11 @@ class OutlinerOperator(bpy.types.Operator):
 
         update_power_list_from_tree(bpy.context.scene.pn_list, bpy.context.scene.pn_tree)
 
-        # return wm.invoke_props_dialog(self, width=300)
         mouse_x, mouse_y = event.mouse_x, event.mouse_y
-        # bpy.context.window.cursor_warp(mouse_x - ui_scale() * 300, mouse_y -  ui_scale() * 20)
-        ret = wm.invoke_popup(self, width=300)
-        # bpy.context.window.cursor_warp(mouse_x, mouse_y)
+        bpy.context.window.cursor_warp(mouse_x - ui_scale() * 180, mouse_y -  ui_scale() * 10)
+        # ret = wm.invoke_popup(self, width=300)
+        ret = wm.invoke_props_dialog(self, width=300)
+        bpy.context.window.cursor_warp(mouse_x, mouse_y)
         return ret
 
     def draw(self, context):
