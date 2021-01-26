@@ -392,7 +392,7 @@ class BaseNode:
             for output_object in output_objects:
                 # # link to collection
                 output_object.display_type = 'SOLID' # 'TEXTURED'
-
+                output_object.hide_select = True
                 # output_objects.data.use_auto_smooth = 1
                 # output_objects.data.auto_smooth_angle = math.pi/4  # 45 degrees
                 #outputstream_socket.object_ref.show_in_front = True
