@@ -7,9 +7,10 @@ bl_info = {
     "description" : "Power Nodes",
     "blender" : (2, 92, 0),
     "version" : (0, 0, 1),
-    "location" : "",
-    "warning" : "",
-    "category" : "Object"
+    "location" : "Node Editor",
+    "warning" : "BETA version. Blender 2.92+ is required!",
+    "doc_url": "https://github.com/rpopovici/power-nodes",
+    "category" : "Node"
 }
 
 
