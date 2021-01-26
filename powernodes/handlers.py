@@ -197,10 +197,10 @@ def undo_update_handler_pre(scene):
 
     set_undo_flag(True)
 
-    out_col = bpy.data.collections.get('POWER_NODES')
-    if out_col:
-        for obj in out_col.objects:
-            unlink_from_collection(obj=obj, collection='POWER_NODES')
+    for col in bpy.data.collections:
+        if '_pn_tag_' in col and col['_pn_tag_']:
+            for obj in col.objects:
+                unlink_from_collection(obj=obj, collection=col.name)
 
     set_undo_flag(False)
     pass

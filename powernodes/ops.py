@@ -68,8 +68,9 @@ def capture_context(objects=[]):
 
 def new_collection(collection='POWER_NODES'):
     if collection not in bpy.data.collections:
-        newCol = bpy.data.collections.new(collection)
-        bpy.context.scene.collection.children.link(newCol)
+        new_col = bpy.data.collections.new(collection)
+        new_col['_pn_tag_'] = True
+        bpy.context.scene.collection.children.link(new_col)
 
     return collection
 
