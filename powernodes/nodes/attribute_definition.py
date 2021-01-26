@@ -44,6 +44,16 @@ TRANSPORT_DOMAIN_TYPE = [
 ]
 
 
+SMOOTH_DOMAIN_TYPE = [
+    ("VERTEX", "Vertex", ""),
+    # ("EDGE", "Edge", ""),
+    # ("CORNER", "Loop", ""),
+    # ("POLYGON", "Face", ""),
+    # ("POINT", "Point", ""),
+    # ("CURVE", "Curve", ""),
+]
+
+
 ATTRIBUTE_TYPE = [
     ("FLOAT", "Float", ""),
     ("INT", "Int", ""),
@@ -125,6 +135,9 @@ ATTRIBUTE_PROP_DEF = {
         "label": 'Attribute smooth',
         "inputs": [
             { "name": "input0", "label": "Input", "type": "InputStream" },
+            { "name": "domain", "label": "Domain", "type": "Enum", "default": 'VERTEX', "items": DOMAIN_TYPE, },
+            { "name": "attribute_name", "label": "Name", "type": "String", "default": 'id', 'icon': 'COPY_ID' },
+            { "name": "steps", "label": "Seed", "type": "Int", "default": 1, "min": 1 },
         ],
         "outputs": [
             { "name": "output", "label": "Output", "type": "OutputStream", "default": "SMOOTH", "items": ATTRIBUTE_ITEMS },

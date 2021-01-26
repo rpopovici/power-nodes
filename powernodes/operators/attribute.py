@@ -385,3 +385,41 @@ def randomize_attribute_op(inputstream, options={}):
         bm.free()
 
     return (inputstream, None)
+
+
+def smooth_attribute_op(inputstream, options={}):
+    domain = options['domain']
+    attribute_name = options['attribute_name']
+    steps = options['steps']
+
+    for index, obj in enumerate(inputstream):
+        me = obj.data
+
+        # get data type from attribute
+        attribute = attribute_get(me, attribute_name, domain)
+        if not attribute:
+            continue
+
+        # Get a BMesh representation
+        bm = bmesh.new()
+        bm.from_mesh(me)
+        bm.verts.ensure_lookup_table()
+        bm.edges.ensure_lookup_table()
+        bm.faces.ensure_lookup_table()
+
+        if domain == 'VERTEX':
+            custom_attr_layer_items = extract_custom_attribute_layers([attribute_name], me, bm, domain)
+            if len(custom_attr_layer_items) > 0:
+                attr, attr_layer_item, _, _ = custom_attr_layer_items[0]
+                for idx in range(steps):
+                    for vert in bm.verts:
+                        vert_values = [edge.other_vert(vert)[attr_layer_item] for edge in vert.link_edges]
+                        average_value = sum(vert_values, TYPE_INITIAL_VALUE[attribute.data_type]) / len(vert_values)
+                        vert[attr_layer_item] = average_value
+
+        # Finish up, write the bmesh back to the mesh
+        bm.to_mesh(me)
+        me.update()
+        bm.free()
+
+    return (inputstream, None)
